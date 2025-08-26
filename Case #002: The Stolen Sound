@@ -1,0 +1,12 @@
+/* select * from crime_scene 
+where location like 'West Hollywood Records%' */
+
+/* select w.id, clue from witnesses w 
+join crime_scene c
+on w.crime_scene_id = c.id
+where crime_scene_id = 65 */
+
+select name, transcript from suspects s
+join interviews i 
+on i.suspect_id = s.id
+where bandana_color like 'red' and accessory like 'gold watch'
