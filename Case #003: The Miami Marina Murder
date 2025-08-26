@@ -1,0 +1,34 @@
+/* select * from crime_scene
+where location = 'Coral Bay Marina' */
+
+/* Two people were seen nearby: one who lives on 300ish "Ocean Drive" and another whose first name ends with "ul" and his last name ends with "ez" */
+
+/* select * from person
+where address like '3%Ocean Drive%' or name like '%ul_%ez' */
+
+/* 
+101	Carlos Mendez	Los Ojos	Fisherman	369 Ocean Drive
+102	Raul Gutierrez	The Cobra	Nightclub Owner	45 Sunset Ave 
+Raul Gutierrez	I heard someone checked into a hotel with "Sunset" in the name.
+I saw someone check into a hotel on August 13. The guy looked nervous.
+*/
+
+/* select name, transcript from person p
+join interviews i
+on i.person_id = p.id
+where name = 'Carlos Mendez' or name = 'Raul Gutierrez'
+*/
+
+/* 
+select s.person_id, name, hotel_name, suspicious_activity from hotel_checkins h
+join person p
+on p.id = h.person_id
+join surveillance_records s
+on s.hotel_checkin_id = h.id
+where hotel_name like '%Sunset%Hotel' and check_in_date = 19860813 
+*/
+
+select name, confession from confessions c
+join person p
+on p.id = c.person_id
+where person_id = 8
