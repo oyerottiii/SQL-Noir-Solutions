@@ -1,0 +1,62 @@
+/*
+select * from crime_scene 
+where location like '%Coconut Grove%'  and date = 19871031
+-- 75 Witnesses mentioned a hotel booking and suspicious phone activity.
+*/
+
+/*
+select crime_scene_id, witness_id, clue from witness_statements
+where crime_scene_id = 75 
+--37 I overheard a booking at The Grand Regency.
+--42 I noticed someone at the front desk discussing Room 707 for a reservation made yesterday
+*/
+
+/*
+select h.id, person_id, name, check_in_date, hotel_name from hotel_checkins h
+join person p
+on p.id = h.person_id
+where room_number = 707 and hotel_name = 'The Grand Regency' and check_in_date = 19871031
+
+--88	134	Amy Evans	19871031	The Grand Regency
+--98	67	Earl Patterson	19871031	The Grand Regency
+--104	156	Kathy Fisher	19871031	The Grand Regency
+*/
+
+/*
+select * from surveillance_records
+where hotel_checkin_id = 88 or hotel_checkin_id = 98 or hotel_checkin_id = 104
+
+--88	88	Subject used hotel notary services for business documents.
+--98	98	Subject requested directions to nearest conference center location.
+--104	104	Subject used hotel dry cleaning service.
+*/
+
+/*
+select p.id, name, note from surveillance_records s
+join hotel_checkins h
+on h.id = s.hotel_checkin_id
+join person p
+on p.id = h.person_id
+where room_number = 707 and check_in_date = 19871030
+
+--11	Antonio Rossi	Subject was overheard yelling on a phone: "Did you kill him?"
+*/
+
+/*
+select name, caller_id, recipient_id, note from phone_records pr
+join person p
+on p.id = pr.caller_id or p.id = pr.recipient_id
+where p.id = 11 or p.id = 58
+
+--Antonio Rossi	11	58	Why did you kill him, bro? You should have left the carpenter do it himself!
+--Victor DiMarco	11	58	Why did you kill him, bro? You should have left the carpenter do it himself!
+--Victor DiMarco	133	58	I will do it. Only if you give me that nice Lambo of yours.
+
+*/
+
+select p.id, p.name from person p
+join vehicle_registry v 
+on v.person_id = p.id
+where occupation = 'Carpenter' and car_make like 'Lambo%'
+
+--Marcos Santos
