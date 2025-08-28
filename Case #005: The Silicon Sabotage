@@ -1,0 +1,70 @@
+/*
+select * from incident_reports
+where location like '%QuantumTech%'
+
+--74 Prototype destroyed; data erased from servers.
+--19890421
+*/
+
+/*
+select employee_name, statement from witness_statements w
+join employee_records e
+on e.id = w.employee_id
+where incident_id = 74
+
+--Carl Jenkins	I heard someone mention a server in Helsinki.
+--Tina Ruiz	I saw someone holding a keycard marked QX- succeeded by a two-digit odd number.
+*/
+
+/*
+select e.id, c.access_date, employee_name, keycard_code from keycard_access_logs k
+join employee_records e
+on e.id = k.employee_id
+join computer_access_logs c
+on c.employee_id = e.id
+where keycard_code like 'QX-%'
+AND CAST(SUBSTRING(k.keycard_code, 4) AS UNSIGNED) BETWEEN 10 AND 99
+AND CAST(SUBSTRING(k.keycard_code, 4) AS UNSIGNED) % 2 = 1
+and server_location like '%Helsinki%'
+
+--99	19890421	Elizabeth Gordon	QX-035
+*/
+
+/*
+select statement from witness_statements
+where employee_id = 99
+
+--That day, I received an email from a colleague saying something was wrong with the alarm system. I went to check it out, but didn’t find anything unusual.
+*/
+
+/*
+select employee_name, sender_employee_id, email_subject, email_content from email_logs e
+join employee_records er
+on er.id = e.sender_employee_id or er.id = e.recipient_employee_id
+where email_date = 19890421 and recipient_employee_id = 99
+
+--Norman Owens	263	Alarm System Concern	I noticed something strange with the alarm system. There might be a potential malfunction near the chip. Thought you should check it out to be safe.
+*/
+
+/*
+select * from email_logs
+where sender_employee_id = 263 or recipient_employee_id = 263
+
+-- 126	263	99	19890421	Alarm System Concern	I noticed something strange with the alarm system. There might be a potential malfunction near the chip. Thought you should check it out to be safe.
+-- 138	NULL	263	19890421	Realign Asset Trajectory	L’s schedule puts her close enough, but we need her inside F18 before 9. Trigger a minor alert or routine checkup to send her in by 8:30. Make sure she logs the visit. That part matters.
+-- 140	NULL	263	19890421	Execute Phase Window	Unlock 18 quietly by 9. He’ll use his own credentials to access it shortly after L leaves. No questions. Just ensure the timing lines up. The trail will lead exactly where it needs to.
+*/
+
+/*
+select * from facility_access_logs
+where access_date = '19890421' and facility_name like '%18%'
+
+--59	290	Facility 18	19890421	12:56
+--74	99	Facility 18	19890421	08:55
+--81	297	Facility 18	19890421	09:01
+*/
+
+select employee_name from employee_records
+where id = 297
+
+--Hristo Bogoev
